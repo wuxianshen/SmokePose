@@ -3,7 +3,7 @@ log_iter: 50
 save_dir: output
 snapshot_epoch: 1
 #weights: ../local_data/models/trained/hrhrnet_135410/model_final.pdparams
-epoch: 300
+epoch: 1
 num_joints: &num_joints 2
 input_size: &input_size 512
 train_height: &train_height 512
@@ -45,12 +45,12 @@ MultiHmMSELoss:
 LearningRate:
   base_lr: 0.001
   schedulers:
-  - !PiecewiseDecay
-    milestones: [200, 260]
-    gamma: 0.1
-  - !LinearWarmup
-    start_factor: 0.001
-    steps: 1000
+    - !PiecewiseDecay
+      milestones: [200, 260]
+      gamma: 0.1
+    - !LinearWarmup
+      start_factor: 0.001
+      steps: 1000
 
 OptimizerBuilder:
   optimizer:
@@ -60,22 +60,22 @@ OptimizerBuilder:
 #####data
 TrainDataset:
   !KeypointBottomUpCocoDataset
-    image_dir: images
-    anno_path: coco_jsons/train_coco.json
-    dataset_dir: 'D:\\Research\\00_Dataset\\smoke_keypoint\\V1\\aug\\'
-    num_joints: *num_joints
+  image_dir: images/train
+  anno_path: coco_jsons/train.json
+  dataset_dir: 'D:\\Research\\00_Dataset\\smoke_keypoint\\V1\\public\\'
+  num_joints: *num_joints
 
 EvalDataset:
   !KeypointBottomUpCocoDataset
-    image_dir: images
-    anno_path: coco_jsons/valid_coco.json
-    dataset_dir: 'D:\\Research\\00_Dataset\\smoke_keypoint\\V1\\aug\\'
-    num_joints: *num_joints
-    test_mode: true
+  image_dir: images/test
+  anno_path: coco_jsons/test.json
+  dataset_dir: 'D:\\Research\\00_Dataset\\smoke_keypoint\\V1\\public\\'
+  num_joints: *num_joints
+  test_mode: true
 
 TestDataset:
   !ImageFolder
-    anno_path: dataset/coco/keypoint_imagelist.txt
+  anno_path: dataset/coco/keypoint_imagelist.txt
 
 worker_num: 8
 global_mean: &global_mean [0.3816, 0.3884, 0.3934]
