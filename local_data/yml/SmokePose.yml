@@ -20,7 +20,7 @@ num_classes: 1
 #####model
 architecture: StackFormer
 #pretrain_weights: 'D:\\File\\Share\\0\\models\\models\\pre-train\\stack_former\\148817\\stack_former_seg_pretrain_148817.pdparams'
-#pretrain_weights: 'D:\\Projects\\Python\\smoke_segmentation\\PaddleSeg-Packages\\paddleseg_v24\\output\\best_model\\model.pdparams'
+
 
 StackFormer:
   model_level: 0
